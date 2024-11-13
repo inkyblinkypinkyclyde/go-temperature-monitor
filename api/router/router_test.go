@@ -3,6 +3,7 @@ package router
 import (
 	"bytes"
 	"encoding/json"
+	"main/models"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -34,9 +35,10 @@ func (s *RouterTestSuite) TearDownSuite() {
 func (s *RouterTestSuite) TestLogRequestHappyPath() {
 	s.router.POST("/logtemperature", s.DefaultReceiver.LogTemperature)
 
-	requestBody := map[string]string{
-		"origin":  "localhost",
-		"message": "message1",
+	requestBody := models.TemperatureReport{
+		CollectorLocation: "outside",
+		Temperature:       20,
+		Humidity:          50,
 	}
 	body, _ := json.Marshal(requestBody)
 	res := performRequest(s.router, "POST", "/logtemperature", body)
