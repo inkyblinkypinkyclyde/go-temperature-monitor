@@ -2,9 +2,14 @@ package models
 
 import "time"
 
-type TemperatureReport struct {
-	CollectorLocation string
-	RcvdTime          time.Time
-	Temperature       int
-	Humidity          int
+type ProbeReport struct {
+	ProbeName   string
+	ProbeIP     string
+	Temperature int
+	Humidity    int
+}
+
+type CollectedProbeReports struct {
+	ProbeReports  []ProbeReport
+	CollectedTime time.Time
 }
