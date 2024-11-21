@@ -1,0 +1,7 @@
+probes:
+  - ProbeName: 'inside'
+    ProbeaAddress: 'http://192.168.4.94'
+  - ProbeName: 'outside'
+    ProbeaAddress: 'http://192.168.4.135'
+interval: 10
+filename: 'testFile.xlsx'

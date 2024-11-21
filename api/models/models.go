@@ -3,8 +3,8 @@ package models
 import "time"
 
 type Probe struct {
-	ProbeName     string
-	ProbeaAddress string
+	ProbeName     string `yaml:"ProbeName"`
+	ProbeaAddress string `yaml:"ProbeaAddress"`
 }
 
 type ProbeReport struct {

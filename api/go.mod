@@ -7,6 +7,7 @@ require (
 	github.com/labstack/gommon v0.4.2
 	github.com/stretchr/testify v1.9.0
 	github.com/xuri/excelize/v2 v2.9.0
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
