@@ -5,27 +5,29 @@ import (
 	"io"
 	"main/models"
 	"net/http"
+	"strconv"
 	"time"
 )
 
-func CollectDatum(url string) (string, error) { // untested
+func CollectDatum(url string) (float64, error) { // untested
 	res, err := http.Get(url)
 	if err != nil {
-		return "", err
+		return 0, err
 	}
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		return "", err
+		return 0, err
 	}
-	return string(body), nil
+
+	return strconv.ParseFloat(string(body), 64)
 }
 
-func MockDatumCollector(mockUrl string) (string, error) {
-	return "20.5", nil
+func MockDatumCollector(mockUrl string) (float64, error) {
+	return 20.5, nil
 }
 
-func CollectAllData(probes []models.Probe, time time.Time, datumCollector func(string) (string, error)) (models.CollectedProbeReports, error) {
+func CollectAllData(probes []models.Probe, time time.Time, datumCollector func(string) (float64, error)) (models.CollectedProbeReports, error) {
 	collectedProbeReports := models.CollectedProbeReports{CollectedTime: time}
 	for _, probe := range probes {
 		temperature, err := datumCollector(fmt.Sprintf("%s/temperature", probe.ProbeaAddress))

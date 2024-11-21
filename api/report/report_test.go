@@ -26,16 +26,16 @@ var collectedProbeReports = models.CollectedProbeReports{
 				ProbeName:     "inside",
 				ProbeaAddress: "192.168.1.2",
 			},
-			Temperature: "20",
-			Humidity:    "50",
+			Temperature: 20,
+			Humidity:    50,
 		},
 		{
 			Probe: models.Probe{
 				ProbeName:     "outside",
 				ProbeaAddress: "192.168.1.3",
 			},
-			Temperature: "10",
-			Humidity:    "40",
+			Temperature: 10,
+			Humidity:    40,
 		},
 	},
 }
@@ -53,9 +53,6 @@ var probes = []models.Probe{
 
 func TestReportTestSuite(t *testing.T) {
 	suite.Run(t, new(ReportTestSuite))
-}
-
-func (s *ReportTestSuite) SetupSuite() {
 }
 
 func (s *ReportTestSuite) TearDownSuite() {

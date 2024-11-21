@@ -9,8 +9,8 @@ type Probe struct {
 
 type ProbeReport struct {
 	Probe       Probe
-	Temperature string
-	Humidity    string
+	Temperature float64
+	Humidity    float64
 }
 
 type CollectedProbeReports struct {
