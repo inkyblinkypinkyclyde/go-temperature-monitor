@@ -22,17 +22,32 @@ var collectedProbeReports = models.CollectedProbeReports{
 	CollectedTime: time.Date(2006, 11, 11, 11, 11, 1, 1, time.UTC),
 	ProbeReports: []models.ProbeReport{
 		{
-			ProbeName:   "inside",
-			ProbeIP:     "192.168.1.2",
-			Temperature: 20,
-			Humidity:    50,
+			Probe: models.Probe{
+				ProbeName: "inside",
+				ProbeIP:   "192.168.1.2",
+			},
+			Temperature: "20",
+			Humidity:    "50",
 		},
 		{
-			ProbeName:   "outside",
-			ProbeIP:     "192.168.1.3",
-			Temperature: 10,
-			Humidity:    40,
+			Probe: models.Probe{
+				ProbeName: "outside",
+				ProbeIP:   "192.168.1.3",
+			},
+			Temperature: "10",
+			Humidity:    "40",
 		},
+	},
+}
+
+var probes = []models.Probe{
+	{
+		ProbeName: "inside",
+		ProbeIP:   "192.168.1.2",
+	},
+	{
+		ProbeName: "outside",
+		ProbeIP:   "192.168.1.3",
 	},
 }
 
@@ -44,11 +59,11 @@ func (s *ReportTestSuite) SetupSuite() {
 }
 
 func (s *ReportTestSuite) TearDownSuite() {
-	os.Remove(testFileName)
+	// os.Remove(testFileName)
 }
 
 func (s *ReportTestSuite) TestGenerateFile() {
-	err := GenerateEmptyReport(testFileName, []string{"inside", "outside"})
+	err := GenerateEmptyReport(testFileName, probes)
 	assert.Equal(s.T(), nil, err)
 
 	_, err = os.Stat(testFileName)
@@ -62,7 +77,7 @@ func (s *ReportTestSuite) TestGenerateFile() {
 }
 
 func (s *ReportTestSuite) TestLogReading() {
-	GenerateEmptyReport(testFileName, []string{"inside", "outside"})
+	GenerateEmptyReport(testFileName, probes)
 
 	err := LogCollectedProbeReports(collectedProbeReports, 2, testFileName)
 
@@ -77,7 +92,7 @@ func (s *ReportTestSuite) TestLogReading() {
 }
 
 func (s *ReportTestSuite) TestFindNextEmptyRow() {
-	GenerateEmptyReport(testFileName, []string{"inside", "outside"})
+	GenerateEmptyReport(testFileName, probes)
 	LogCollectedProbeReports(collectedProbeReports, 2, testFileName)
 
 	nextEmptyRow, err := GetNextEmptyRow(testFileName)

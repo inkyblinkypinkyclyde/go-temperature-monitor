@@ -2,11 +2,15 @@ package models
 
 import "time"
 
+type Probe struct {
+	ProbeName string
+	ProbeIP   string
+}
+
 type ProbeReport struct {
-	ProbeName   string
-	ProbeIP     string
-	Temperature int
-	Humidity    int
+	Probe       Probe
+	Temperature string
+	Humidity    string
 }
 
 type CollectedProbeReports struct {

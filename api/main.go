@@ -1,7 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"main/models"
+	"main/report"
+)
 
 func main() {
-	fmt.Print("hello")
+	probes := []models.Probe{
+		{
+			ProbeName: "inside",
+			ProbeIP:   "192.168.1.2",
+		},
+		{
+			ProbeName: "outside",
+			ProbeIP:   "192.168.1.3",
+		},
+	}
+	err := report.GenerateEmptyReport("testreport.xlsx", probes)
+	if err != nil {
+		panic(err)
+	}
 }

@@ -12,15 +12,15 @@ const (
 	FIRST_ROW  = 2
 )
 
-func GenerateEmptyReport(reportName string, locations []string) error {
+func GenerateEmptyReport(reportName string, probes []models.Probe) error {
 	file := excelize.NewFile()
 	currentColumn := 65
 	file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), HEADER_ROW), "time")
 	readings := []string{"temperature", "humidity"}
-	for _, location := range locations {
+	for _, probe := range probes {
 		for _, reading := range readings {
 			currentColumn++
-			file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), HEADER_ROW), fmt.Sprintf("%s %s", location, reading))
+			file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), HEADER_ROW), fmt.Sprintf("%s %s", probe.ProbeName, reading))
 		}
 	}
 	return file.SaveAs(reportName)
