@@ -6,6 +6,7 @@ import (
 	datacollector "main/data_collector"
 	"main/models"
 	"main/report"
+	"os"
 	"time"
 
 	"github.com/labstack/gommon/log"
@@ -16,9 +17,10 @@ import (
 var configFile []byte
 
 type Config struct {
-	Probes   []models.Probe `yaml:"probes"`
-	Interval int            `yaml:"interval"`
-	FileName string         `yaml:"filename"`
+	Probes            []models.Probe `yaml:"probes"`
+	Interval          int            `yaml:"interval"`
+	NumberOfIntervals int            `yaml:"number_of_ntervals"`
+	FileName          string         `yaml:"filename"`
 }
 
 func main() {
@@ -36,7 +38,7 @@ func main() {
 		panic(err)
 	}
 
-	for {
+	for i := 0; i < config.NumberOfIntervals; i++ {
 		collectedProbereports, datacollectorError := datacollector.CollectAllData(config.Probes, time.Now(), datacollector.CollectDatum)
 		if datacollectorError != nil {
 			log.Info(datacollectorError)
@@ -55,10 +57,16 @@ func main() {
 }
 
 func loadConfig() (*Config, error) {
-	var config Config
-	err := yaml.Unmarshal(configFile, &config)
+	file, err := os.Open("config.yaml")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open config file: %w", err)
+	}
+	defer file.Close()
+
+	var config Config
+	decoder := yaml.NewDecoder(file)
+	if err := decoder.Decode(&config); err != nil {
+		return nil, fmt.Errorf("failed to decode YAML file: %w", err)
 	}
 	return &config, nil
 }

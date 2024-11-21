@@ -3,5 +3,6 @@ probes:
     ProbeaAddress: 'http://192.168.4.94'
   - ProbeName: 'outside'
     ProbeaAddress: 'http://192.168.4.135'
-interval: 10
+interval: 1
+number_of_ntervals: 3
 filename: 'testFile.xlsx'
