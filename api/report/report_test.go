@@ -23,16 +23,16 @@ var collectedProbeReports = models.CollectedProbeReports{
 	ProbeReports: []models.ProbeReport{
 		{
 			Probe: models.Probe{
-				ProbeName: "inside",
-				ProbeIP:   "192.168.1.2",
+				ProbeName:     "inside",
+				ProbeaAddress: "192.168.1.2",
 			},
 			Temperature: "20",
 			Humidity:    "50",
 		},
 		{
 			Probe: models.Probe{
-				ProbeName: "outside",
-				ProbeIP:   "192.168.1.3",
+				ProbeName:     "outside",
+				ProbeaAddress: "192.168.1.3",
 			},
 			Temperature: "10",
 			Humidity:    "40",
@@ -42,12 +42,12 @@ var collectedProbeReports = models.CollectedProbeReports{
 
 var probes = []models.Probe{
 	{
-		ProbeName: "inside",
-		ProbeIP:   "192.168.1.2",
+		ProbeName:     "inside",
+		ProbeaAddress: "192.168.1.2",
 	},
 	{
-		ProbeName: "outside",
-		ProbeIP:   "192.168.1.3",
+		ProbeName:     "outside",
+		ProbeaAddress: "192.168.1.3",
 	},
 }
 
@@ -59,7 +59,7 @@ func (s *ReportTestSuite) SetupSuite() {
 }
 
 func (s *ReportTestSuite) TearDownSuite() {
-	// os.Remove(testFileName)
+	os.Remove(testFileName)
 }
 
 func (s *ReportTestSuite) TestGenerateFile() {

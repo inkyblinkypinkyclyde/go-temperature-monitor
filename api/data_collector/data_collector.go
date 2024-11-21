@@ -28,11 +28,11 @@ func MockDatumCollector(mockUrl string) (string, error) {
 func CollectAllData(probes []models.Probe, time time.Time, datumCollector func(string) (string, error)) (models.CollectedProbeReports, error) {
 	collectedProbeReports := models.CollectedProbeReports{CollectedTime: time}
 	for _, probe := range probes {
-		temperature, err := datumCollector(fmt.Sprintf("%s/temperature", probe.ProbeIP))
+		temperature, err := datumCollector(fmt.Sprintf("%s/temperature", probe.ProbeaAddress))
 		if err != nil {
 			return collectedProbeReports, err
 		}
-		humidity, err := datumCollector(fmt.Sprintf("%s/humidity", probe.ProbeIP))
+		humidity, err := datumCollector(fmt.Sprintf("%s/humidity", probe.ProbeaAddress))
 		if err != nil {
 			return collectedProbeReports, err
 		}

@@ -37,15 +37,12 @@ func (s *DataCollectorTestSuite) TestGenerateFile() {
 func (s *DataCollectorTestSuite) TestCollectAllData() {
 	probes := []models.Probe{
 		{
-			ProbeName: "inside",
-			ProbeIP:   "192.168.1.2",
-		},
-		{
-			ProbeName: "outside",
-			ProbeIP:   "192.168.1.3",
+			ProbeName:     "inside",
+			ProbeaAddress: "http://192.168.4.94/",
 		},
 	}
-	collectedProbeReports, err := CollectAllData(probes, time.Date(2006, 11, 11, 11, 11, 1, 1, time.UTC), MockDatumCollector)
+	// http: //192.168.4.94/humidity
+	collectedProbeReports, err := CollectAllData(probes, time.Date(2006, 11, 11, 11, 11, 1, 1, time.UTC), CollectDatum)
 	assert.Nil(s.T(), err)
 	expectedCollectedData := models.CollectedProbeReports{
 		CollectedTime: time.Date(2006, time.November, 11, 11, 11, 1, 1, time.UTC),

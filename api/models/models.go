@@ -3,8 +3,8 @@ package models
 import "time"
 
 type Probe struct {
-	ProbeName string
-	ProbeIP   string
+	ProbeName     string
+	ProbeaAddress string
 }
 
 type ProbeReport struct {
