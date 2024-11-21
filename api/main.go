@@ -19,7 +19,7 @@ var configFile []byte
 type Config struct {
 	Probes            []models.Probe `yaml:"probes"`
 	Interval          int            `yaml:"interval"`
-	NumberOfIntervals int            `yaml:"number_of_ntervals"`
+	NumberOfIntervals int            `yaml:"number_of_intervals"`
 	FileName          string         `yaml:"filename"`
 }
 
