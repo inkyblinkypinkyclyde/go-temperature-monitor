@@ -1,18 +1,12 @@
 package main
 
 import (
-	_ "embed"
 	"fmt"
 	configloader "main/config_loader"
 	datacollector "main/data_collector"
 	"main/report"
 	"time"
-
-	"github.com/labstack/gommon/log"
 )
-
-//go:embed config.yaml
-var configFile []byte
 
 func main() {
 	config, err := configloader.LoadConfig("config.yaml")
@@ -36,15 +30,21 @@ func main() {
 	for i := 0; i < config.NumberOfIntervals; i++ {
 		collectedProbereports, datacollectorError := datacollector.CollectAllData(config.Probes, time.Now(), datacollector.CollectDatum)
 		if datacollectorError != nil {
-			log.Info(datacollectorError)
+			fmt.Println(datacollectorError)
+		}
+		if config.DebugMode {
+			fmt.Println(collectedProbereports)
 		}
 		nextEmptyRow, nextEmptyRowError := report.GetNextEmptyRow(config.FileName)
 		if nextEmptyRowError != nil {
-			log.Info(nextEmptyRowError)
+			fmt.Println(nextEmptyRowError)
 			continue
 		}
+		if config.DebugMode {
+			fmt.Printf("Next empty row: %d\n", nextEmptyRow)
+		}
 		if err = report.LogCollectedProbeReports(collectedProbereports, nextEmptyRow, config.FileName); err != nil {
-			log.Info(err)
+			fmt.Println(err)
 		}
 		fmt.Println(time.Now())
 		time.Sleep(time.Duration(config.Interval) * time.Second)
