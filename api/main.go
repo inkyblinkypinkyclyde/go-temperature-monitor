@@ -3,30 +3,25 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	configloader "main/config_loader"
 	datacollector "main/data_collector"
-	"main/models"
 	"main/report"
-	"os"
 	"time"
 
 	"github.com/labstack/gommon/log"
-	"gopkg.in/yaml.v2"
 )
 
 //go:embed config.yaml
 var configFile []byte
 
-type Config struct {
-	Probes            []models.Probe `yaml:"probes"`
-	Interval          int            `yaml:"interval"`
-	NumberOfIntervals int            `yaml:"number_of_intervals"`
-	FileName          string         `yaml:"filename"`
-}
-
 func main() {
-	config, err := loadConfig()
+	config, err := configloader.LoadConfig()
 	if err != nil {
 		panic(err)
+	}
+
+	if config.DebugMode {
+		fmt.Println("I am in debug mode")
 	}
 
 	for _, probe := range config.Probes {
@@ -54,19 +49,4 @@ func main() {
 		fmt.Println(time.Now())
 		time.Sleep(time.Duration(config.Interval) * time.Second)
 	}
-}
-
-func loadConfig() (*Config, error) {
-	file, err := os.Open("config.yaml")
-	if err != nil {
-		return nil, fmt.Errorf("failed to open config file: %w", err)
-	}
-	defer file.Close()
-
-	var config Config
-	decoder := yaml.NewDecoder(file)
-	if err := decoder.Decode(&config); err != nil {
-		return nil, fmt.Errorf("failed to decode YAML file: %w", err)
-	}
-	return &config, nil
 }

@@ -1,0 +1,9 @@
+probes:
+  - ProbeName: 'testProbe1'
+    ProbeaAddress: 'testProbeAddress1'
+  - ProbeName: 'testProbe2'
+    ProbeaAddress: 'testProbeAddress2'
+interval: 10
+number_of_intervals: 11
+filename: 'testFileName.xlsx'
+debug_mode: true

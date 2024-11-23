@@ -17,3 +17,11 @@ type CollectedProbeReports struct {
 	ProbeReports  []ProbeReport
 	CollectedTime time.Time
 }
+
+type Config struct {
+	Probes            []Probe `yaml:"probes"`
+	Interval          int     `yaml:"interval"`
+	NumberOfIntervals int     `yaml:"number_of_intervals"`
+	FileName          string  `yaml:"filename"`
+	DebugMode         bool    `yaml:"debug_mode"`
+}
