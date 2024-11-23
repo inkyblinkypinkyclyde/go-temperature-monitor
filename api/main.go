@@ -15,7 +15,7 @@ import (
 var configFile []byte
 
 func main() {
-	config, err := configloader.LoadConfig()
+	config, err := configloader.LoadConfig("config.yaml")
 	if err != nil {
 		panic(err)
 	}
