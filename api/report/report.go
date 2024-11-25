@@ -15,6 +15,8 @@ const (
 func GenerateEmptyReport(reportName string, probes []models.Probe) error {
 	file := excelize.NewFile()
 	currentColumn := 65
+	file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), HEADER_ROW), "date")
+	currentColumn++
 	file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), HEADER_ROW), "time")
 	readings := []string{"temperature", "humidity"}
 	for _, probe := range probes {
@@ -29,7 +31,9 @@ func GenerateEmptyReport(reportName string, probes []models.Probe) error {
 func LogCollectedProbeReports(collectedProbeReports models.CollectedProbeReports, row int, fileName string) error {
 	file, _ := excelize.OpenFile(fileName)
 	currentColumn := 65
-	file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), row), collectedProbeReports.CollectedTime)
+	file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), row), collectedProbeReports.CollectedTime.Format("01/02/2006"))
+	currentColumn++
+	file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn)), row), collectedProbeReports.CollectedTime.Format("15:04:05"))
 	for _, probeReport := range collectedProbeReports.ProbeReports {
 		file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn+1)), row), probeReport.Temperature)
 		file.SetCellValue("Sheet1", fmt.Sprintf("%s%d", string(rune(currentColumn+2)), row), probeReport.Humidity)

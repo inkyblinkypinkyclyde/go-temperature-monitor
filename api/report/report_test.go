@@ -19,7 +19,7 @@ type ReportTestSuite struct {
 const testFileName = "testfile.xlsx"
 
 var collectedProbeReports = models.CollectedProbeReports{
-	CollectedTime: time.Date(2006, 11, 11, 11, 11, 1, 1, time.UTC),
+	CollectedTime: time.Date(2006, 12, 15, 13, 45, 40, 1, time.UTC),
 	ProbeReports: []models.ProbeReport{
 		{
 			Probe: models.Probe{
@@ -66,11 +66,12 @@ func (s *ReportTestSuite) TestGenerateFile() {
 	_, err = os.Stat(testFileName)
 	assert.Equal(s.T(), nil, err)
 	rows, _ := getReport(testFileName)
-	assert.Equal(s.T(), "time", rows[0][0])
-	assert.Equal(s.T(), "inside temperature", rows[0][1])
-	assert.Equal(s.T(), "inside humidity", rows[0][2])
-	assert.Equal(s.T(), "outside temperature", rows[0][3])
-	assert.Equal(s.T(), "outside humidity", rows[0][4])
+	assert.Equal(s.T(), "date", rows[0][0])
+	assert.Equal(s.T(), "time", rows[0][1])
+	assert.Equal(s.T(), "inside temperature", rows[0][2])
+	assert.Equal(s.T(), "inside humidity", rows[0][3])
+	assert.Equal(s.T(), "outside temperature", rows[0][4])
+	assert.Equal(s.T(), "outside humidity", rows[0][5])
 }
 
 func (s *ReportTestSuite) TestLogReading() {
@@ -81,11 +82,12 @@ func (s *ReportTestSuite) TestLogReading() {
 	assert.Nil(s.T(), err)
 
 	rows, _ := getReport(testFileName)
-	assert.Equal(s.T(), "11/11/06 11:11", rows[1][0])
-	assert.Equal(s.T(), "20", rows[1][1])
-	assert.Equal(s.T(), "50", rows[1][2])
-	assert.Equal(s.T(), "10", rows[1][3])
-	assert.Equal(s.T(), "40", rows[1][4])
+	assert.Equal(s.T(), "12/15/2006", rows[1][0])
+	assert.Equal(s.T(), "13:45:40", rows[1][1])
+	assert.Equal(s.T(), "20", rows[1][2])
+	assert.Equal(s.T(), "50", rows[1][3])
+	assert.Equal(s.T(), "10", rows[1][4])
+	assert.Equal(s.T(), "40", rows[1][5])
 }
 
 func (s *ReportTestSuite) TestFindNextEmptyRow() {
