@@ -23,5 +23,4 @@ type Config struct {
 	Interval          int     `yaml:"interval"`
 	NumberOfIntervals int     `yaml:"number_of_intervals"`
 	FileName          string  `yaml:"filename"`
-	DebugMode         bool    `yaml:"debug_mode"`
 }

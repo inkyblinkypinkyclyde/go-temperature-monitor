@@ -6,4 +6,3 @@ probes:
 interval: 10
 number_of_intervals: 11
 filename: 'testFileName.xlsx'
-debug_mode: true

@@ -33,7 +33,6 @@ func (s *ConfigLoaderTestSuite) TestLoadConfig() {
 		Interval:          10,
 		NumberOfIntervals: 11,
 		FileName:          "testFileName.xlsx",
-		DebugMode:         true,
 	}
 	assert.Equal(s.T(), &expectedConfig, config)
 }

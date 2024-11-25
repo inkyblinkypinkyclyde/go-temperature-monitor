@@ -14,10 +14,6 @@ func main() {
 		panic(err)
 	}
 
-	if config.DebugMode {
-		fmt.Println("I am in debug mode")
-	}
-
 	for _, probe := range config.Probes {
 		fmt.Printf("Probe Name: %s, Address: %s\n", probe.ProbeName, probe.ProbeaAddress)
 	}
@@ -32,16 +28,11 @@ func main() {
 		if datacollectorError != nil {
 			fmt.Println(datacollectorError)
 		}
-		if config.DebugMode {
-			fmt.Println(collectedProbereports)
-		}
+		fmt.Println(collectedProbereports)
 		nextEmptyRow, nextEmptyRowError := report.GetNextEmptyRow(config.FileName)
 		if nextEmptyRowError != nil {
 			fmt.Println(nextEmptyRowError)
 			continue
-		}
-		if config.DebugMode {
-			fmt.Printf("Next empty row: %d\n", nextEmptyRow)
 		}
 		if err = report.LogCollectedProbeReports(collectedProbereports, nextEmptyRow, config.FileName); err != nil {
 			fmt.Println(err)
