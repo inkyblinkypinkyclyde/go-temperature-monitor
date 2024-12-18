@@ -62,8 +62,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}-v3
-        release_name: Release ${{ github.ref_name }}
+        tag_name: ${{ github.ref_name }}-$(date +'%Y%m%d%H%M%S')
+        release_name: Release ${{ github.ref_name }} $(date +'%Y%m%d%H%M%S')
         body: |
           This release includes the following changes:
           - Feature 1
@@ -71,12 +71,12 @@ jobs:
         draft: false
         prerelease: false
 
-    # - name: Upload Release Asset
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: go-binaries/ # Path to your artifact
-    #     asset_name: my-app-${{ matrix.os }}-${{ matrix.arch }} # Name for the asset in the release
-    #     asset_content_type: application/octet-stream
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: go-binaries/ # Path to your artifact
+        asset_name: my-app-${{ matrix.os }}-${{ matrix.arch }} # Name for the asset in the release
+        asset_content_type: application/octet-stream
