@@ -18,7 +18,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
-        name: go-binary # Name of the artifact uploaded previously
+        name: go-binaries
 
     - name: Create Release
       id: create_release
