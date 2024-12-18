@@ -62,8 +62,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}-v4
-        release_name: Release ${{ github.ref_name }} v4
+        tag_name: ${{ github.ref_name }}-v5
+        release_name: Release ${{ github.ref_name }} v6
         body: |
           This release includes the following changes:
           - Feature 1
@@ -77,6 +77,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: go-binaries/ # Path to your artifact
+        asset_path: app/build # Path to your artifact
         asset_name: my-app-${{ matrix.os }}-${{ matrix.arch }} # Name for the asset in the release
         asset_content_type: application/octet-stream
