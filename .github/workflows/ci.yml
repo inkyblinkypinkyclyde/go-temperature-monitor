@@ -1,9 +1,27 @@
-name: Build and Release
+name: Build, Test and Release
 
 on:
   push:
     
 jobs:
+  test:
+    name: Go Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.20.1
+
+      - name: Build and Test
+        run: |
+          cd app
+          go mod download
+          go test -count=1 ./...
   build:
     runs-on: ubuntu-latest
 
@@ -39,7 +57,7 @@ jobs:
       matrix:
         os: [linux]
         arch: [amd64]
-    needs: build
+    needs: [build, test]
     permissions: write-all
     steps:
     - name: Check out repository
