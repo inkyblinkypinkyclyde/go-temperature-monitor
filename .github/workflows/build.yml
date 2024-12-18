@@ -62,8 +62,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}-$(date +'%Y%m%d%H%M%S')
-        release_name: Release ${{ github.ref_name }} $(date +'%Y%m%d%H%M%S')
+        tag_name: ${{ github.ref_name }}-v4
+        release_name: Release ${{ github.ref_name }} v4
         body: |
           This release includes the following changes:
           - Feature 1
