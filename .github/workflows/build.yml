@@ -62,8 +62,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}-v5
-        release_name: Release ${{ github.ref_name }} v6
+        tag_name: ${{ github.ref_name }}-v7
+        release_name: Release ${{ github.ref_name }} v7
         body: |
           This release includes the following changes:
           - Feature 1
