@@ -55,11 +55,11 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: go-binaries
-        
+
     - name: List downloaded files
       run: |
-        echo "Listing files in go-binaries folder:"
-        ls -R go-binaries/
+        echo "Listing files in working directory:"
+        ls -R
 
     - name: Create Release
       id: create_release
