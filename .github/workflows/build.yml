@@ -60,7 +60,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        # Create a new tag
         git tag ${{ env.tag }}
         git push origin ${{ env.tag }}
 
@@ -73,7 +72,7 @@ jobs:
     - name: Zip artifact
       run: |
         cd app/build
-        zip archive.zip temp* ../config.yaml
+        zip binaries.zip temp* ../config.yaml
 
     - name: Create Release
       id: create_release
