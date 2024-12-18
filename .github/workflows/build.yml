@@ -55,6 +55,11 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: go-binaries
+        
+    - name: List downloaded files
+      run: |
+        echo "Listing files in go-binaries folder:"
+        ls -R go-binaries/
 
     - name: Create Release
       id: create_release
@@ -77,6 +82,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: go-binary/my-app # Path to your artifact
+        asset_path: go-binaries/ # Path to your artifact
         asset_name: my-app-linux-amd64 # Name for the asset in the release
         asset_content_type: application/octet-stream
