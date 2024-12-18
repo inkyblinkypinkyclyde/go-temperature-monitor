@@ -50,6 +50,16 @@ jobs:
         name: go-binaries
         path: app/build/
 
+  early-exit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check branch
+      run: |
+        if [ "${{ github.ref_name }}" != "master" ]; then
+          echo "Not on master branch. Stopping workflow."
+          exit 0
+        fi
+
   release:
     name: Create Release
     runs-on: ubuntu-latest
@@ -57,6 +67,7 @@ jobs:
       matrix:
         os: [linux]
         arch: [amd64]
+    if: ${{ github.ref_name == 'master' }}
     needs: [build, test]
     permissions: write-all
     steps:
