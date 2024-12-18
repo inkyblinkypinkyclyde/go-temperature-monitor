@@ -55,8 +55,6 @@ jobs:
         timestamp=$(date -u +"%Y%m%d-%H%M%S")
         tag="v${timestamp}"
         echo "Generated tag: $tag"
-
-        # Output the tag for use in later steps
         echo "tag=$tag" >> $GITHUB_ENV
 
     - name: Create and push new tag
@@ -84,8 +82,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.next_tag }}
-        release_name: Release ${{ env.next_tag }}
+        tag_name: ${{ env.tag }}
+        release_name: Release ${{ env.tag }}
         draft: false
         prerelease: false
 
