@@ -16,10 +16,6 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [linux]
-        arch: [amd64]
     permissions: write-all
     steps:
     - name: Check out repository
