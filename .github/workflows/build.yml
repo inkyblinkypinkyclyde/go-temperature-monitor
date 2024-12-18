@@ -30,8 +30,8 @@ jobs:
         echo ${GOROOT}
         go version
 
-    - name: Install dependencies
-      run: go mod tidy
+    # - name: Install dependencies
+    #   run: go mod tidy
         
     - name: Build for ${{ matrix.os }}-${{ matrix.arch }}
       run: |
