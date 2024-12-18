@@ -1,4 +1,4 @@
-name: Build, Test and Release
+name: Test, Build and Release
 
 on:
   push:
@@ -68,9 +68,6 @@ jobs:
         fi
     - name: Check out repository
       uses: actions/checkout@v3
-
-    - name: Fetch all tags
-      run: git fetch --tags
 
     - name: Generate timestamp tag
       id: generate_tag
