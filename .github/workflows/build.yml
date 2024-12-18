@@ -2,9 +2,7 @@ name: Build and Upload Go Binary
 
 on:
   push:
-    branches:
-      - main
-      
+
 jobs:
   build:
     runs-on: ubuntu-latest
