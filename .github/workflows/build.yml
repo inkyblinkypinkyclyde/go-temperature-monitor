@@ -28,14 +28,15 @@ jobs:
         echo ${GITHUB_WORKSPACE}
         echo ${GOPATH}
         echo ${GOROOT}
+
+    - name: Install dependencies
+      run: go mod tidy
         
     - name: Build for ${{ matrix.os }}-${{ matrix.arch }}
       run: |
         cd app
         mkdir -p build
         GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o build/my-app-${{ matrix.os }}-${{ matrix.arch }}
-      env:
-        GOPATH: /home/runner/work/go-temperature-monitor/go-temperature-monitor
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
