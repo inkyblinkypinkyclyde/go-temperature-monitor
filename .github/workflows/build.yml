@@ -60,6 +60,12 @@ jobs:
     needs: [build, test]
     permissions: write-all
     steps:
+    - name: Check branch
+      run: |
+        if [ "${{ github.ref_name }}" != "master" ]; then
+          echo "Not on master branch. Exiting workflow."
+          exit 1
+        fi
     - name: Check out repository
       uses: actions/checkout@v3
 
