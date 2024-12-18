@@ -1,9 +1,7 @@
-name: Build
+name: Build, Test and Release
 
 on:
   push:
-    branches:
-      - "*"
     
 jobs:
   test:
