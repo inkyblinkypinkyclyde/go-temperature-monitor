@@ -40,9 +40,7 @@ jobs:
         os: [linux]
         arch: [amd64]
     needs: build
-    permissions:
-      contents: read
-      packages: write
+    permissions: write-all
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
@@ -79,6 +77,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: app/build # Path to your artifact
-        asset_name: my-app-${{ matrix.os }}-${{ matrix.arch }} # Name for the asset in the release
+        asset_path: app/build
+        asset_name: my-app-${{ matrix.os }}-${{ matrix.arch }}
         asset_content_type: application/octet-stream
