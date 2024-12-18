@@ -41,7 +41,7 @@ jobs:
         arch: [amd64]
     needs: build
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
     - name: Check out repository
