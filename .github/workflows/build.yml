@@ -26,34 +26,34 @@ jobs:
         cd app
         mkdir -p build
         GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o build/my-app-${{ matrix.os }}-${{ matrix.arch }}
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: go-binaries
-        path: build/
+  #   - name: Upload artifact
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: go-binaries
+  #       path: build/
 
-  release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [linux]
-        arch: [amd64]
-    needs: build
-    permissions: write-all
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+  # release:
+  #   name: Create Release
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       os: [linux]
+  #       arch: [amd64]
+  #   needs: build
+  #   permissions: write-all
+  #   steps:
+  #   - name: Check out repository
+  #     uses: actions/checkout@v3
 
-    - name: Download artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: go-binaries
+  #   - name: Download artifact
+  #     uses: actions/download-artifact@v3
+  #     with:
+  #       name: go-binaries
 
-    - name: List downloaded files
-      run: |
-        echo "Listing files in working directory:"
-        ls -R
+  #   - name: List downloaded files
+  #     run: |
+  #       echo "Listing files in working directory:"
+  #       ls -R
     - name: Display structure of downloaded files
       run: ls -R
       working-directory: build/
