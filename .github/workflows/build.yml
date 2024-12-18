@@ -40,7 +40,9 @@ jobs:
         os: [linux]
         arch: [amd64]
     needs: build
-    permissions: write-all
+    permissions:
+      contents: read
+      packages: write
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
