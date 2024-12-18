@@ -40,23 +40,44 @@ jobs:
         os: [linux]
         arch: [amd64]
     needs: build
-    permissions:
-      contents: write
-      packages: write
+    permissions: write-all
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
+
+    - name: Fetch all tags
+      run: git fetch --tags
+
+    - name: Determine next tag
+      id: next_tag
+      run: |
+        # Get the latest numeric tag
+        latest_tag=$(git tag --sort=-v:refname | head -n 1 || echo "v0")
+        echo "Latest tag: $latest_tag"
+
+        # Extract the numeric part of the tag (strip the 'v' prefix)
+        latest_number=$(echo $latest_tag | sed 's/v//')
+
+        # Increment the number
+        next_number=$((latest_number + 1))
+        next_tag="v${next_number}"
+        echo "Next tag: $next_tag"
+
+        # Output the next tag
+        echo "next_tag=$next_tag" >> $GITHUB_ENV
+    - name: Create and push new tag
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Create a new tag
+        git tag ${{ env.next_tag }}
+        git push origin ${{ env.next_tag }}
 
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
         name: go-binaries
         path: app/build/
-
-    - name: List downloaded files
-      run: |
-        echo "Listing files in working directory:"
-        ls -R app/build/
 
     - name: Create Release
       id: create_release
