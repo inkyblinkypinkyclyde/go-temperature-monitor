@@ -52,6 +52,7 @@ jobs:
 
   early-exit:
     runs-on: ubuntu-latest
+    needs: [build, test]
     steps:
     - name: Check branch
       run: |
@@ -63,12 +64,8 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [linux]
-        arch: [amd64]
     if: ${{ github.ref_name == 'master' }}
-    needs: [build, test]
+    needs: [build, test, early-exit]
     permissions: write-all
     steps:
     - name: Check branch
