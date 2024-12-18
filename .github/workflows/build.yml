@@ -9,8 +9,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [linux, darwin]
-        arch: [amd64]
+        os: [linux, darwin, windows]
+        arch: [amd64, arm64]
     permissions: write-all
     steps:
     - name: Check out code
@@ -51,7 +51,6 @@ jobs:
     - name: Generate timestamp tag
       id: generate_tag
       run: |
-        # Generate a timestamp in the format vYYYYMMDD-HHMMSS
         timestamp=$(date -u +"%Y%m%d-%H%M%S")
         tag="v${timestamp}"
         echo "Generated tag: $tag"
@@ -74,7 +73,7 @@ jobs:
     - name: Zip artifact
       run: |
         cd app/build
-        zip binaries.zip *
+        zip archive.zip temp* ../config.yaml
 
     - name: Create Release
       id: create_release
@@ -95,4 +94,4 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: app/build/binaries.zip
         asset_name: binaries.zip
-        asset_content_type: application/octet-stream
+        asset_content_type: application/zip

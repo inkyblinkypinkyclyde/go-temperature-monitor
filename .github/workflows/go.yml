@@ -1,11 +1,11 @@
-name: Go CI
+name: Go Test
 
 on:
   push:
 
 jobs:
   build:
-    name: Build and Test
+    name: Go Test
     runs-on: ubuntu-latest
 
     steps:
