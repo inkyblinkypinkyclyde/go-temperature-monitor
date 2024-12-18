@@ -1,8 +1,10 @@
 name: Build and Upload Go Binary
 
 on:
-  push:
-
+  workflow_run:
+    workflows: ["Go CI"]
+    types:
+      - completed
 jobs:
   build:
     runs-on: ubuntu-latest

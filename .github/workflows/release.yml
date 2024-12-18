@@ -1,10 +1,11 @@
 name: Create Release from Artifact
 
 on:
-  workflow_dispatch: # Trigger manually from the GitHub Actions UI
-  push:
-    tags:
-      - 'v*' # Trigger when a tag starting with 'v' is pushed
+    workflow_run:
+      workflows: ["Build and Upload Go Binary"]  # Name of the build workflow
+      types:
+        - completed  # Trigger when the build workflow completes
+  
 
 jobs:
   release:
