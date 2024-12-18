@@ -85,8 +85,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}-v8
-        release_name: Release ${{ github.ref_name }} v8
+        tag_name: ${{ env.next_tag }}
+        release_name: Release ${{ env.next_tag }}
         draft: false
         prerelease: false
 
