@@ -1,4 +1,4 @@
-name: Build, Test and Release
+name: Test, Build and Release
 
 on:
   push:
@@ -50,27 +50,32 @@ jobs:
         name: go-binaries
         path: app/build/
 
+  early-exit:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    steps:
+    - name: Check branch
+      run: |
+        if [ "${{ github.ref_name }}" != "master" ]; then
+          echo "Not on master branch. Stopping workflow."
+          exit 0
+        fi
+
   release:
     name: Create Release
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [linux]
-        arch: [amd64]
-    needs: [build, test]
+    if: ${{ github.ref_name == 'master' }}
+    needs: [build, test, early-exit]
     permissions: write-all
     steps:
     - name: Check branch
       run: |
         if [ "${{ github.ref_name }}" != "master" ]; then
           echo "Not on master branch. Exiting workflow."
-          exit 1
+          exit 0
         fi
     - name: Check out repository
       uses: actions/checkout@v3
-
-    - name: Fetch all tags
-      run: git fetch --tags
 
     - name: Generate timestamp tag
       id: generate_tag
