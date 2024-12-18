@@ -3,4 +3,4 @@ api/temperature_logger_linux_arm
 api/temperature_logger_win_x64.exe
 api/testFile.xlsx
 .DS_Store
-build/temperature*
+app/build/*
