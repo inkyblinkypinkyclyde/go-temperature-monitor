@@ -55,10 +55,6 @@ jobs:
       run: |
         echo "Listing files in working directory:"
         ls -R app/build/
-        
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: build/
 
     - name: Create Release
       id: create_release
@@ -66,7 +62,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }} # Use the tag that triggered the workflow
+        # tag_name: ${{ github.ref_name }} # Use the tag that triggered the workflow
+        tag_name: "my cool release" # Use the tag that triggered the workflow
         release_name: Release ${{ github.ref_name }}
         body: |
           This release includes the following changes:
