@@ -6,4 +6,7 @@ build-app:
 	cd app && env GOOS=darwin GOARCH=amd64 go build -o build/temperature_logger_mac_intel .
 
 test:
-	cd api && go test -v ./...
+	cd app && go test -v ./...
+
+gotest:
+	cd app && go test -v ./... -integration=true
