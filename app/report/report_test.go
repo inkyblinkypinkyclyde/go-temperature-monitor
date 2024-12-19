@@ -1,6 +1,7 @@
 package report
 
 import (
+	"flag"
 	"main/models"
 	"os"
 	"testing"
@@ -10,6 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
+
+var integration *bool = flag.Bool("integration", true, "run only integration tests")
 
 type ReportTestSuite struct {
 	suite.Suite

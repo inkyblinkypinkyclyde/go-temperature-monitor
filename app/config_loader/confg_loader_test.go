@@ -1,12 +1,15 @@
 package configloader
 
 import (
+	"flag"
 	"main/models"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
+
+var integration *bool = flag.Bool("integration", true, "run only integration tests")
 
 type ConfigLoaderTestSuite struct {
 	suite.Suite
